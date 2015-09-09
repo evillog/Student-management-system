@@ -16,13 +16,15 @@ def main():
         current_user = login(number, password, user_list)
         count -= 1
 
-        while current_user is not None:
+        while current_user is not None and not current_user.is_exit:
             current_user.show_menu()
             choice = current_user.choose_menu()
             current_user.choose_action(choice, user_list)
 
-            save_data(user_list)
-            exit_program()
+        current_user.is_exit = False
+        save_data(user_list)
+        exit_program()
+
     else:
         exit_program()
 
@@ -70,7 +72,7 @@ def exit_program():
 if __name__ == '__main__':
     f = open('data.pkl', 'r').read()
     if len(f) == 0:
-        admin_user = Admin('0', '0', {})
+        admin_user = Admin('0', '0')
         user_dic = {'0': admin_user}
         info_file = open('data.pkl', 'w')
         pickle.dump(user_dic, info_file)

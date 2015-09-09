@@ -2,8 +2,8 @@ from user import User
 
 
 class Student(User):
-    def __init__(self, number, password, score=0):
-        User.__init__(self, number, password)
+    def __init__(self, number, password, is_exit=False, score=0):
+        User.__init__(self, number, password, is_exit)
         self._score = 0
 
         self.score = score
@@ -38,6 +38,6 @@ class Student(User):
         elif choice == "2":
             self.change_password()
         elif choice == "0":
-            pass
+            self.is_exit = True
         else:
             print "input error"

@@ -4,8 +4,8 @@ from student import Student
 
 
 class Admin(User):
-    def __init__(self, number, password, user_list={}):
-        User.__init__(self, number, password)
+    def __init__(self, number, password, is_exit=False, user_list={}):
+        User.__init__(self, number, password, is_exit)
         self.list = user_list
 
     def set_user_list(self, user_list):
@@ -70,7 +70,7 @@ class Admin(User):
             user_num = raw_input("The number you want to delete: ")
             self.del_user(user_num)
         elif choice == "0":
-            pass
+            self.is_exit = True
 
         else:
             print "input error"

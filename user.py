@@ -1,8 +1,9 @@
 class User(object):
-    def __init__(self, number, password):
+    def __init__(self, number, password, is_exit=False):
         self.number = number
         self.password = password
         self.user_list = {}
+        self.is_exit = False
 
     def set_number(self, number):
         self.number = number

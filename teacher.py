@@ -3,8 +3,8 @@ import student
 
 
 class Teacher(User):
-    def __init__(self, number, password):
-        User.__init__(self, number, password)
+    def __init__(self, number, password, is_exit=False):
+        User.__init__(self, number, password, is_exit)
 
     def change_score(self, stu, score):
         try:
@@ -45,7 +45,7 @@ class Teacher(User):
         elif choice == "3":
             self.change_password()
         elif choice == "0":
-            pass
+            self.is_exit = True
         else:
             print "input error"
 
