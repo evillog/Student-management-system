@@ -1,5 +1,6 @@
 import pickle
 import sys
+from admin import Admin
 
 
 def main():
@@ -69,7 +70,6 @@ def exit_program():
 if __name__ == '__main__':
     f = open('data.pkl', 'r').read()
     if len(f) == 0:
-        from admin import Admin
         admin_user = Admin('0', '0', {})
         user_dic = {'0': admin_user}
         info_file = open('data.pkl', 'w')

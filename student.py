@@ -1,28 +1,42 @@
-import user
+from user import User
 
 
-class Student(user.User):
-    def __init__(self, number, password):
-        user.User.__init__(self, number, password)
-        self.score = 0
+class Student(User):
+    def __init__(self, number, password, score=0):
+        User.__init__(self, number, password)
+        self._score = 0
 
-    def set_score(self, score):
         self.score = score
+
+    @property
+    def score(self):
+        return self._score
+
+    @score.setter
+    def score(self, value):
+        if int(value) < 0:
+            raise ValueError("Negative value not allowed: %s" % value)
+        self._score = value
 
     def get_score(self):
         return self.score
 
-    def show_menu(self):
+    @staticmethod
+    def show_menu():
         print "1.query score"
+        print "2.change password"
         print "0.quit"
 
-    def choose_menu(self):
+    @staticmethod
+    def choose_menu():
         choice = raw_input("choose:")
         return choice
 
     def choose_action(self, choice, user_list):
         if choice == "1":
             print self.get_score()
+        elif choice == "2":
+            self.change_password()
         elif choice == "0":
             pass
         else:

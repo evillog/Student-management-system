@@ -1,11 +1,11 @@
-import user
-import student
-import teacher
+from user import User
+from teacher import Teacher
+from student import Student
 
 
-class Admin(user.User):
+class Admin(User):
     def __init__(self, number, password, user_list={}):
-        user.User.__init__(self, number, password)
+        User.__init__(self, number, password)
         self.list = user_list
 
     def set_user_list(self, user_list):
@@ -14,7 +14,7 @@ class Admin(user.User):
     def add_stu(self, stu_num, stu_psw):
         user_list = self.list
 
-        new_stu = student.Student(stu_num, stu_psw)
+        new_stu = Student(stu_num, stu_psw)
         new_stu.set_number(stu_num)
         new_stu.set_password(stu_psw)
         user_list[stu_num] = new_stu
@@ -26,7 +26,7 @@ class Admin(user.User):
     def add_tea(self, tec_num, tec_psw):
         user_list = self.list
 
-        new_tec = teacher.Teacher(tec_num, tec_psw)
+        new_tec = Teacher(tec_num, tec_psw)
         new_tec.set_number(tec_num)
         new_tec.set_password(tec_psw)
         user_list[tec_num] = new_tec
@@ -41,12 +41,13 @@ class Admin(user.User):
             print "The account does not exist!"
         print "deleted successfully!"
 
-
-    def show_menu(self):
+    @staticmethod
+    def show_menu():
         print "1.query all students"
         print "2.query all teachers"
         print "3.add user"
         print "4.delete user"
+        print "5.change password"
         print "0.quit"
 
     def choose_menu(self):
@@ -63,6 +64,8 @@ class Admin(user.User):
             self.add_user(user_list)
         elif choice == "4":
             self.query_all_user()
+        elif choice == "5":
+            self.change_password()
 
             user_num = raw_input("The number you want to delete: ")
             self.del_user(user_num)
@@ -82,11 +85,11 @@ class Admin(user.User):
             password = raw_input("Please enter your  password: ")
             choice = raw_input("Please choose your id (S-student/T-teacher/A-admin)")
 
-            if choice not in 'st':
+            if choice not in 'stST':
                 print 'Input error, please try again!'
-            elif choice == 's':
+            elif choice == 's' or choice == 'S':
                 self.add_stu(number, password)
-            elif choice == 't':
+            elif choice == 't' or choice == 'T':
                 self.add_tea(number, password)
         else:
             print "The number is already exists, please try another one!"
@@ -94,17 +97,17 @@ class Admin(user.User):
 
     def query_all_student(self):
         for each in self.list.itervalues():
-            if isinstance(each, student.Student):
+            if isinstance(each, Student):
                 show_student(each)
 
     def query_all_teacher(self):
         for each in self.list.itervalues():
-            if isinstance(each, teacher.Teacher):
+            if isinstance(each, Teacher):
                 show_teacher(each)
 
     def query_all_user(self):
         for each in self.list.itervalues():
-            if (isinstance(each, teacher.Teacher)) or (isinstance(each, student.Student)):
+            if (isinstance(each, Teacher)) or (isinstance(each, Student)):
                 show_teacher(each)
 
 

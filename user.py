@@ -1,4 +1,4 @@
-class User:
+class User(object):
     def __init__(self, number, password):
         self.number = number
         self.password = password
@@ -18,6 +18,14 @@ class User:
             return True
         else:
             print "Wrong password or account!"
+
+    def change_password(self):
+        new_pass = raw_input("Please input your new password: ")
+        repeat_pass = raw_input("Please repeat your new password: ")
+        if new_pass == repeat_pass:
+            self.password = new_pass
+        else:
+            print "Input error!"
 
 
 
