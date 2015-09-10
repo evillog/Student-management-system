@@ -6,7 +6,8 @@ class Teacher(User):
     def __init__(self, number, password, is_exit=False):
         User.__init__(self, number, password, is_exit)
 
-    def change_score(self, stu, score):
+    @staticmethod
+    def change_score(stu, score):
         try:
             stu.score = score
             print "Add score success!"
@@ -16,14 +17,11 @@ class Teacher(User):
     def query_all_stu(self, user_list):
         for each in user_list.itervalues():
             if isinstance(each, student.Student):
-                show_stu_score(each)
+                self.show_stu_score(each)
 
     @staticmethod
     def show_menu():
-        print "1.add/change student's score"
-        print "2.query all student's score"
-        print "3.change password"
-        print "0.quit"
+        print "1.add/change student's score\n2.query all student's score\n3.change password\n0.quit"
 
     @staticmethod
     def choose_menu():
@@ -49,6 +47,6 @@ class Teacher(User):
         else:
             print "input error"
 
-
-def show_stu_score(stu):
-    print 'Number: %s Score: %s' % (stu.get_number(), stu.get_score())
+    @staticmethod
+    def show_stu_score(stu):
+        print 'Number: %s Score: %s' % (stu.get_number(), stu.get_score())

@@ -27,6 +27,8 @@ class User(object):
             self.password = new_pass
         else:
             print "Input error!"
+            self.change_password()
+
 
 
 

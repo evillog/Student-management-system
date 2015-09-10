@@ -43,14 +43,10 @@ class Admin(User):
 
     @staticmethod
     def show_menu():
-        print "1.query all students"
-        print "2.query all teachers"
-        print "3.add user"
-        print "4.delete user"
-        print "5.change password"
-        print "0.quit"
+        print "1.query all students\n2.query all teachers\n3.add user\n4.delete user\n5.change password\n0.quit"
 
-    def choose_menu(self):
+    @staticmethod
+    def choose_menu():
         choice = raw_input("choose:")
         return choice
 
@@ -64,11 +60,10 @@ class Admin(User):
             self.add_user(user_list)
         elif choice == "4":
             self.query_all_user()
-        elif choice == "5":
-            self.change_password()
-
             user_num = raw_input("The number you want to delete: ")
             self.del_user(user_num)
+        elif choice == "5":
+            self.change_password()
         elif choice == "0":
             self.is_exit = True
 
@@ -83,10 +78,10 @@ class Admin(User):
         if number not in self.list:
 
             password = raw_input("Please enter your  password: ")
-            choice = raw_input("Please choose your id (S-student/T-teacher/A-admin)")
+            choice = raw_input("Please choose your id (S-student/T-teacher/A-admin): ")
 
             if choice not in 'stST':
-                print 'Input error, please try again!'
+                print "Input error, please try again!"
             elif choice == 's' or choice == 'S':
                 self.add_stu(number, password)
             elif choice == 't' or choice == 'T':
@@ -98,23 +93,22 @@ class Admin(User):
     def query_all_student(self):
         for each in self.list.itervalues():
             if isinstance(each, Student):
-                show_student(each)
+                self.show_student(each)
 
     def query_all_teacher(self):
         for each in self.list.itervalues():
             if isinstance(each, Teacher):
-                show_teacher(each)
+                self.show_teacher(each)
 
     def query_all_user(self):
         for each in self.list.itervalues():
             if (isinstance(each, Teacher)) or (isinstance(each, Student)):
-                show_teacher(each)
+                self.show_teacher(each)
 
+    @staticmethod
+    def show_student(stu):
+        print 'Number: %s Score: %s' % (stu.get_number(), stu.get_score())
 
-def show_student(stu):
-    print 'Number: %s Score: %s' % (stu.get_number(), stu.get_score())
-
-
-def show_teacher(tec):
-    print 'Number: %s' % tec.get_number()
-
+    @staticmethod
+    def show_teacher(tec):
+        print 'Number: %s' % tec.get_number()

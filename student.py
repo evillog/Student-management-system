@@ -23,9 +23,7 @@ class Student(User):
 
     @staticmethod
     def show_menu():
-        print "1.query score"
-        print "2.change password"
-        print "0.quit"
+        print "1.query score\n2.change password\n0.quit"
 
     @staticmethod
     def choose_menu():
@@ -34,7 +32,7 @@ class Student(User):
 
     def choose_action(self, choice, user_list):
         if choice == "1":
-            print self.get_score()
+            print "Score: ", self.get_score()
         elif choice == "2":
             self.change_password()
         elif choice == "0":
