@@ -10,23 +10,27 @@ def main():
     print user_list
 
     current_user = None
-    count = 3
+    count = 5
+
     while current_user is None and count > 0:
+        print "You only have %s time(s) to try" % count
         number, password = welcome_login()
         current_user = login(number, password, user_list)
         count -= 1
 
-        while current_user is not None and not current_user.is_exit:
-            current_user.show_menu()
-            choice = current_user.choose_menu()
-            current_user.choose_action(choice, user_list)
-
-        current_user.is_exit = False
-        save_data(user_list)
-        exit_program()
-
+        if current_user is not None:
+            break
     else:
         exit_program()
+
+    while not current_user.is_exit:
+        current_user.show_menu()
+        choice = current_user.choose_menu()
+        current_user.choose_action(choice, user_list)
+
+    current_user.is_exit = False
+    save_data(user_list)
+    exit_program()
 
 
 def load_data():
@@ -52,12 +56,13 @@ def welcome_login():
 
 def login(number, password, user_list):
     try:
-        user_list[number].check_password(password)
+        if user_list[number].check_password(password):
+            return user_list[number]
+        else:
+            return None
     except KeyError:
         print "The account does not exist!"
         return None
-
-    return user_list[number]
 
 
 def choose_menu(user, user_list):
